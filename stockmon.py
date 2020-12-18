@@ -3,12 +3,11 @@ import configparser
 import time
 from flask import Flask
 
+# Flask setup
 stockmon = Flask(__name__)
 @stockmon.route('/')
-
 def hello():
     return 'Hello World!'
-
 if __name__ == '__main__':
     stockmon.run(host='127.0.0.1', port=8080, debug=True)
 
@@ -22,6 +21,7 @@ class bcolors:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
+# Config parser setup
 config = configparser.ConfigParser()
 if not config.read('config.ini'):
     print('No config.ini found. Creating Default one.')
@@ -32,10 +32,8 @@ if not config.read('config.ini'):
     with open('config.ini', 'w') as configfile:
         config.write(configfile)
     exit()
-
 lookupdelay = int(config['SETTINGS']['LookupDelay'])
 previousprice = {}
-
 for stock in config.sections():
     if stock == 'SETTINGS':
         continue
